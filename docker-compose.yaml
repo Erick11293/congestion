@@ -1,0 +1,32 @@
+version: "3.3"
+
+services:
+  opt:
+    container_name: congestion
+    build: .
+    volumes:
+      - type: bind
+        source: ./data # ruta en host
+        target: /home/data
+      - type: bind
+        source: ./notebooks # ruta en host
+        target: /home/notebooks
+      - type: bind
+        source: ./src # ruta en host
+        target: /home/src
+      - type: bind
+        source: ./models # ruta en host
+        target: /home/models
+    deploy:
+      resources:
+        limits:
+          cpus: "10.0"
+          memory: "14g"
+        reservations:
+          cpus: "2.0"
+          memory: "2g"
+    environment:
+      - JUPYTER_TOKEN=
+    ports:
+      - 8888:8888
+
